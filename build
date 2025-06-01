@@ -33,7 +33,7 @@ File.open('index.html', 'w') do |f|
   f.write '</thead>'
   f.write '<tbody>'
   records.each do |record|
-    f.write "<tr><td>#{record[:c]}</td><td>#{record[:f]}</td></tr>"
+    f.write "<tr><td>#{record[:c].round(3)}</td><td>#{record[:f].round(3)}</td></tr>"
   end
   f.write '</tbody>'
   f.write '</table>'
