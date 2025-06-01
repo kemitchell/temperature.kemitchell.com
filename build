@@ -14,13 +14,13 @@ c_waypoints = [
   37,
   100,
   40
-]
+].map(&:to_f)
 
 f_waypoints = [
   98.6,
   65,
   100
-]
+].map(&:to_f)
 
 records = []
 
