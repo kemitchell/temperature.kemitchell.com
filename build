@@ -1,32 +1,21 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-c_waypoints = [
-  0,
-  37,
-  100,
-  40
-].map(&:to_f)
-
-f_waypoints = [
-  98.6,
-  65,
-  100
-].map(&:to_f)
-
 records = []
 
-c_waypoints.each do |c|
-  records << { c:, f: (c * (9 / 5)) + 32 }
+[0, 37, 100, 40].each do |c|
+  records << { c: c.to_f, f: (c.to_f * (9 / 5)) + 32 }
 end
 
-f_waypoints.each do |f|
-  records << { f:, c: (f - 32) * (5 / 9) }
+[98.6, 65, 100].each do |f|
+  records << { c: ((f.to_f - 32) * (5 / 9)), f: f.to_f }
 end
 
 records.sort! do |a, b|
   a[:f] <=> b[:f]
 end
+
+puts records
 
 File.open('index.html', 'w') do |f|
   f.write "<!doctype html>
