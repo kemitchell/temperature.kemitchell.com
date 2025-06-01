@@ -1,14 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-def c_to_f(c)
-  (c * (9 / 5)) + 32
-end
-
-def f_to_c(f)
-  (f - 32) * (5 / 9)
-end
-
 c_waypoints = [
   0,
   37,
@@ -25,15 +17,15 @@ f_waypoints = [
 records = []
 
 c_waypoints.each do |c|
-  records << { c:, f: c_to_f(c) }
+  records << { c:, f: (c * (9 / 5)) + 32 }
 end
 
 f_waypoints.each do |f|
-  records << { f:, c: f_to_c(f) }
+  records << { f:, c: (f - 32) * (5 / 9) }
 end
 
 records.sort! do |a, b|
-  a[:c] <=> b[:c]
+  a[:f] <=> b[:f]
 end
 
 File.open('index.html', 'w') do |f|
