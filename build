@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+def c_to_f(c)
+  (c * (9 / 5)) + 32
+end
+
+def f_to_c(f)
+  (f - 32) * (5 / 9)
+end
+
+c_waypoints = [
+  0,
+  37,
+  100,
+  40
+]
+
+f_waypoints = [
+  98.6,
+  65,
+  100
+]
+
+records = []
+
+c_waypoints.each do |c|
+  records << { c:, f: c_to_f(c) }
+end
+
+f_waypoints.each do |f|
+  records << { f:, c: f_to_c(f) }
+end
+
+records.sort! do |a, b|
+  a[:c] <=> b[:c]
+end
+
+File.open('index.html', 'w') do |f|
+  f.write "<!doctype html>
+  <html lang=en-US>
+    <head>
+      <meta charset=UTF-8>
+      <meta name=viewport content=\"width=device-width, initial-scale=1\">
+      <title>Temperature</title>
+      <link rel=stylesheet href=styles.css>
+    </head>
+    <body>
+    <main>"
+  f.write '<table>'
+  f.write '<thead><tr><th>Celsius</th><th>Fahrenheit</th></tr>'
+  f.write '</thead>'
+  f.write '<tbody>'
+  records.each do |record|
+    f.write "<tr><td>#{record[:c]}</td><td>#{record[:f]}</td></tr>"
+  end
+  f.write '</tbody>'
+  f.write '</table>'
+  f.write '</main></body></html>'
+end
+
+`tidy --indent-spaces 2 --tidy-mark no -indent -wrap 0 -modify -quiet index.html`

@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+DOMAIN=temperature.kemitchell.com
+./build
+scp index.html styles.css "$DOMAIN:/var/www/$DOMAIN"
